@@ -28,12 +28,11 @@
             
             <ul class="navbar-nav ms-lg-4">
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Logout</a></li>
+                    <li class="nav-item"><a class="btn btn-outline-dark mt-auto" href="{% url 'logout'%}">Logout</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login'%}">Login</a></li>
+                    <li class="nav-item"><a class="btn btn-outline-dark mt-auto" href="{% url 'login'%}">Login</a></li>
                 {% endif %}
             </ul>
-            
         </div>
     </div>
 </nav>
