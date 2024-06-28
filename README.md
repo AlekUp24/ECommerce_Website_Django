@@ -7,10 +7,14 @@ Ecommerce Website with Django
 # Technology:
 
 
-## Backend  -  Django
+## Backend  
+Django
 
-## CSS  -  bootstrap (with bootstrap templates)
+## CSS  
+bootstrap (with bootstrap templates)
 
-## DB  -  sqlite3
+## DB
+sqlite3
 
-## JS  -  boostrap templates
+## JS
+boostrap templates
