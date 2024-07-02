@@ -26,8 +26,7 @@ About | E-Commerce Heaven
                         {% else %}
                             $ {{product.price}}
                         {% endif %}
-                        <br><br>
-                        <p><small class="text-body-secondary"><i>ID: {{product.id}}</i></small></p>
+                        <br>
                     </p>
 
                     <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-auto px-3">Home</a>
@@ -55,7 +54,8 @@ $(document).on('click', '#add-to-cart', function(add_cart){
             action: 'post'
         },
         success: function(json){
-            console.log(json)
+            //console.log(json)
+            document.getElementById('cart_qty').textContent = json.qty
         },
         error: function(xhr,errmsg,err){
         }

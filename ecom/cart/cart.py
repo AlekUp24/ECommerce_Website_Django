@@ -1,3 +1,5 @@
+from store.models import Product 
+
 class Cart():
     def __init__(self,request):
 
@@ -7,7 +9,7 @@ class Cart():
         cart = self.session.get('session_key')
 
         # if the user is new
-        if 'key' not in request.session:
+        if 'session_key' not in request.session:
             cart = self.session['session_key'] = {}
 
         # make sure cart is available on all pages
@@ -22,6 +24,17 @@ class Cart():
             pass
         else:
             self.cart[product_id] = {
-                'price': str(product.price),
+                'price': str(product.price)
                 }
         self.session.modified = True
+
+
+    def __len__(self):
+        return len(self.cart)
+    
+
+    def get_products(self):
+        product_ids = self.cart.keys()
+        products = Product.objects.filter(id__in = product_ids)
+
+        return products

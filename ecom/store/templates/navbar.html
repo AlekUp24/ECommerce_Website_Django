@@ -29,7 +29,7 @@
                         <a class="btn btn-outline-dark" href="{% url 'cart_summary' %}">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span id="cart_qty" class="badge bg-dark text-white ms-1 rounded-pill">{{ cart|length }}</span>
                         </a>
                     </li>
                     &nbsp;&nbsp;

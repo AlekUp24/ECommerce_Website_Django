@@ -29,26 +29,23 @@
                                 <!-- Product image-->
                                 <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
                                 
+                                <!-- Card body-->
+                                <div class="card-body mb-2"></div>
+                                
                                 <!-- Product details-->
-                                <div class="card-body p-4">
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center">
-                                
-                                        <!-- Product name-->
                                         <h5 class="fw-bolder">{{product.name}}</h5>
-                                
                                         <!-- Product price-->
                                         {% if product.is_sale %}
-                                            <strike>$ {{product.price}}</strike><br>
+                                            <strike>$ {{product.price}}</strike>&nbsp;
                                             <b>$ {{product.sale_price}}</b>
                                         {% else %}
                                             $ {{product.price}}
                                         {% endif %}
-                                
+                                        <br><br>
                                     </div>
-                                </div>
-                                
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <!-- Product actions -->
                                     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
                                 </div>
                             </div>
