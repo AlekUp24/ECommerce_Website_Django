@@ -80,17 +80,32 @@ def product(request, pk):
 def category(request, cat_name):
     cat_name = cat_name.replace('-', ' ')
     categories= Category.objects.all()
-
-    try:
-        category = Category.objects.get(name=cat_name)
-        products = Product.objects.filter(category=category)
-
-        return render(request, 'category.html', {
-            'products': products,
-            'category': category,
-            'categories' : categories,
-            })
     
-    except:
-        messages.error(request,("That category doesn't exist!"))
-        return redirect('home')
+    if cat_name != 'Sale':
+        try:
+            category = Category.objects.get(name=cat_name)
+            products = Product.objects.filter(category=category)
+
+            return render(request, 'category.html', {
+                'products': products,
+                'category': category,
+                'categories' : categories,
+                })
+        
+        except:
+            messages.error(request,("That category doesn't exist!"))
+            return redirect('home')
+    else:
+        try:
+            category = 'Currently on Sale!'
+            products = Product.objects.filter(is_sale=True)
+
+            return render(request, 'category.html', {
+                'products': products,
+                'category': category,
+                'categories' : categories,
+                })
+        
+        except:
+            messages.error(request,("That category doesn't exist!"))
+            return redirect('home')

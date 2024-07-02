@@ -17,6 +17,8 @@
                             <li><a class="dropdown-item" href="{% url 'category' category.name %}">{{ category.name }}</a></li>
                         {% endfor %}
 
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Sale' %}">&#9734; On Sale</a></li>
                     </ul>
                 </li>
             </ul>
