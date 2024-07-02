@@ -14,9 +14,11 @@ from django import forms
 def home(request):
 
     products = Product.objects.all()
+    categories= Category.objects.all()
     
     return render(request, 'home.html', {
-        'products':products}
+        'products' : products,
+        'categories' : categories}
         )
 
 def about(request):
@@ -77,6 +79,7 @@ def product(request, pk):
 
 def category(request, cat_name):
     cat_name = cat_name.replace('-', ' ')
+    categories= Category.objects.all()
 
     try:
         category = Category.objects.get(name=cat_name)
@@ -84,7 +87,8 @@ def category(request, cat_name):
 
         return render(request, 'category.html', {
             'products': products,
-            'category': category
+            'category': category,
+            'categories' : categories,
             })
     
     except:

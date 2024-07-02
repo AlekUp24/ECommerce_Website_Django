@@ -12,22 +12,25 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'home' %}">All Products</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Books' %}">Books</a></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Mobile-Phones' %}">Mobile Phones</a></li>
+                        
+                        {% for category in categories %}
+                            <li><a class="dropdown-item" href="{% url 'category' category.name %}">{{ category.name }}</a></li>
+                        {% endfor %}
+
                     </ul>
                 </li>
             </ul>
-            
-            <form class="d-flex">
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </button>
-            </form>
-            
+                <!-- if user not authenticated - cart invisible-->
             <ul class="navbar-nav ms-lg-4">
                 {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline-dark" href="{% url 'cart_summary' %}">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </a>
+                    </li>
+                    &nbsp;&nbsp;
                     <li class="nav-item"><a class="btn btn-outline-dark mt-auto" href="{% url 'logout'%}">Logout</a></li>
                 {% else %}
                     <li class="nav-item"><a class="btn btn-outline-dark mt-auto" href="{% url 'login'%}">Login</a></li>
