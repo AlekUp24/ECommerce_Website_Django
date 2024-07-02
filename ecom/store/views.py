@@ -15,7 +15,9 @@ def home(request):
 
     products = Product.objects.all()
     
-    return render(request, 'home.html', {'products':products})
+    return render(request, 'home.html', {
+        'products':products}
+        )
 
 def about(request):
 
@@ -35,7 +37,6 @@ def login_user(request):
         else:
             messages.error(request,("There was an error, please try again..."))
             return redirect('login')
-        
     else:   
         return render(request, 'login.html',{})
 
@@ -63,4 +64,14 @@ def register_user(request):
             messages.error(request,("Oops! There was a problem, please try again..."))
             return redirect('register')
     else:
-        return render(request, 'register.html',{'form':form})
+        return render(request, 'register.html',{
+            'form':form
+            })
+    
+def product(request, pk):
+    product = Product.objects.get(id=pk)
+
+    return render(request, 'product.html',{
+        'product':product
+        })
+    

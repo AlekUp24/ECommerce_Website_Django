@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+About | E-Commerce Heaven
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <br><br>
+
+    <div class="card mb-3 p-5">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body px-5">
+                
+                    <h4 class="card-title mb-4">{{ product.name }}</h4>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><small class="text-body-secondary">{{ product.category }}</small></p>
+                    <p class="card-text">
+                        {% if product.is_sale %}
+                        <b>$ {{product.sale_price}}</b>&nbsp;&nbsp;<strike>$ {{product.price}}</strike>
+                        {% else %}
+                            $ {{product.price}}
+                        {% endif %}
+                    </p>
+
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-auto">Home</a>
+                
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<br><br>
+
+{% endblock %}
