@@ -58,17 +58,22 @@
                                             </p>
                                             <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-auto mx-1 px-3">Home</a>
                                             <button type="button" id="update-cart" data-index="{{product.id}}" class="btn btn-outline-primary mx-1 px-3">Update</button>
-                                            <button type="button" id="delete-from-cart" data-index="{{product.id}}" class="btn btn-outline-danger mx-1 px-3">Delete</button>
+                                            <button type="button" id="delete-from-cart" data-index="{{product.id}}" class="btn btn-outline-danger mx-1 px-3">Remove</button>
                                         </div>
                                     </div>
                             </div>
                         </div> 
                     </div>
                 {% endfor%}
+                
+                    <div class="row float-end mb-4 mt-3">
+                        <h3>Total: &nbsp;&nbsp; $ {{ totals }}</h3>
+                    </div> 
+
             {% else %}
                 <br><br>
-                <h4><center>Ups! <br>Your cart is empty. Add a product to see cart summary.</center></h4>
-            {% endif %}
+                <h4><center>Ups! <br>Your cart is empty. Add a product to see cart summary.</center></h4>    
+                {% endif %}
             </ul>
         </div>
 
