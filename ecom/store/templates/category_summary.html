@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Categories | E-Commerce Heaven
+{% endblock %}
+
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">List of Categories</h1>
+                <p class="lead fw-normal text-white-50 mb-0"><i>Choose your category</i></p>
+            </div>
+        </div>
+    </header>
+    
+    <br><br>
+    
+    <div class="container">
+        <div class="row">
+            <center>
+                <div class="col-8 center">
+                    <div>
+                        {% for category in categories %}
+                            <h5 class="m-3"><a class="text-secondary" href="{% url 'category' category.name %}">{{category.name}}</a></h5>
+                        {% endfor %}
+   
+                    </div>
+                </div>
+            </center>
+        </div>    
+    </div>
+
+    <br><br>
+
+{% endblock %}
