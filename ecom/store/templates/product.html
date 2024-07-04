@@ -26,6 +26,19 @@ About | E-Commerce Heaven
                         {% else %}
                             $ {{product.price}}
                         {% endif %}
+                        <br><br>
+                        <div class="row justify-content-left">
+                            <div class="col-md-2">Quantity:</div> 
+                                <div class="col-md-2">
+                                    <select id="qty-cart" class="form-select form-select-sm">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="3">4</option>
+                                        <option value="3">5</option>
+                                    </select>   
+                                </div>        
+                        </div>
                         <br>
                     </p>
 
@@ -50,6 +63,7 @@ $(document).on('click', '#add-to-cart', function(add_cart){
         url: '{% url 'cart_add' %}',
         data:{
             product_id: $('#add-to-cart').val(),
+            product_qty: $('#qty-cart option:selected').text(),
             csrfmiddlewaretoken: '{{ csrf_token }}',
             action: 'post'
         },
