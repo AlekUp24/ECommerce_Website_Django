@@ -39,7 +39,7 @@
                                                 <div class="row justify-content-left">
                                                     <div class="col-md-2">Quantity:</div> 
                                                         <div class="col-md-2">
-                                                            <select id="qty-cart" class="form-select form-select-sm">
+                                                            <select id="select{{product.id}}" class="form-select form-select-sm">
                                                                 <option selected>
                                                                     {% for key,value in quantities.items %}
                                                                         {% if key == product.id|slugify %}
@@ -56,7 +56,9 @@
                                                         </div>        
                                                 </div>
                                             </p>
-                                            <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-auto px-3">Home</a>
+                                            <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-auto mx-1 px-3">Home</a>
+                                            <button type="button" id="update-cart" data-index="{{product.id}}" class="btn btn-outline-primary mx-1 px-3">Update</button>
+                                            <button type="button" id="delete-from-cart" data-index="{{product.id}}" class="btn btn-outline-danger mx-1 px-3">Delete</button>
                                         </div>
                                     </div>
                             </div>
@@ -69,5 +71,54 @@
             {% endif %}
             </ul>
         </div>
+
+
+
+<script>
+    //check if button pressed
+$(document).on('click', '#update-cart', function(update_cart){
+    update_cart.preventDefault();
+    var productid = $(this).data('index');
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_update' %}',
+        data:{
+            product_id: $(this).data('index'),
+            product_qty: $('#select' + productid + ' option:selected').text(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json){
+            //console.log(json)
+            //document.getElementById('cart_qty').textContent = json.qty
+            location.reload();
+        },
+        error: function(xhr,errmsg,err){
+        }
+    });
+})
+
+//check if button pressed
+$(document).on('click', '#delete-from-cart', function(delete_from_cart){
+    delete_from_cart.preventDefault();
+    var productid = $(this).data('index');
+    console.log(productid)
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_delete' %}',
+        data:{
+            product_id: $(this).data('index'),
+            product_qty: $('#select' + productid + ' option:selected').text(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json){
+            location.reload();
+        },
+        error: function(xhr,errmsg,err){
+        }
+    });
+})
+</script>
 
 {% endblock %}

@@ -29,9 +29,18 @@ class Cart():
 
         self.session.modified = True
 
-    def delete(self):
-        
-       pass
+    def delete(self, product_id):
+        product_id = str(product_id)
+
+        if product_id in self.cart:
+            del self.cart[str(product_id)]
+        else:
+            pass
+
+        self.session.modified = True
+        thing = self.cart
+
+        return thing
 
 
     def __len__(self):
@@ -44,8 +53,20 @@ class Cart():
 
         return products
     
+    
     def get_quantities(self):
-        
         quantities = self.cart
 
         return quantities
+    
+    def update(self, product_id, quantity):
+        product_id = str(product_id)
+        product_qty = int(quantity)
+
+        our_cart = self.cart
+        our_cart[product_id] = product_qty
+
+        self.session.modified = True
+        thing = self.cart
+
+        return thing
