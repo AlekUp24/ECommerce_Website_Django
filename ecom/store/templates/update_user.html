@@ -25,10 +25,9 @@ User Profile | E-Commerce Heaven
                     <form method="post" action="{% url 'update_user' %}">
                         {% csrf_token %}
                         {{ user_form.as_p}}
-                        <br><br>
-                        <button type="submit" class="btn btn-secondary">Update Profile</button>
-                    </form>
-                    
+                        <br>
+                        <a href="{% url 'update_password' %}" class="btn btn-dark">Update Password</a><button type="submit" class="btn btn-success float-end">Update Profile</button>
+                    </form>                  
                 </div>
         </div>    
     </div>
