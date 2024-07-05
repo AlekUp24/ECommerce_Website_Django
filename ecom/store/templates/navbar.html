@@ -24,19 +24,21 @@
             </ul>
                 <!-- if user not authenticated - cart invisible-->
             <ul class="navbar-nav ms-lg-4">
+
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="btn btn-outline-dark" href="{% url 'cart_summary' %}">
+                        <a class="btn btn-outline-dark mx-1" href="{% url 'cart_summary' %}">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span id="cart_qty" class="badge bg-dark text-white ms-1 rounded-pill">{{ cart|length }}</span>
                         </a>
                     </li>
-                    &nbsp;&nbsp;
-                    <li class="nav-item"><a class="btn btn-outline-dark mt-auto" href="{% url 'logout'%}">Logout</a></li>
+                    <li class="nav-item"><a class="btn btn-secondary mt-auto mx-1" href="{% url 'update_user'%}">My Profile</a></li>
+                    <li class="nav-item"><a class="btn btn-outline-dark mt-auto mx-1" href="{% url 'logout'%}">Logout</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="btn btn-outline-dark mt-auto" href="{% url 'login'%}">Login</a></li>
+                    <li class="nav-item"><a class="btn btn-outline-dark mt-auto mx-1" href="{% url 'login'%}">Login</a></li>
                 {% endif %}
+
             </ul>
         </div>
     </div>
