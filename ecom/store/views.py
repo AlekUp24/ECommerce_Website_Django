@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm
 from django import forms
+from django.db.models import Q
 
 
 # Create your views here.
@@ -154,3 +155,25 @@ def category_summary(request):
     categories = Category.objects.all()
 
     return render(request, 'category_summary.html', {'categories': categories})
+
+
+def search(request):
+    if request.method == 'POST':
+        keyword = request.POST['searched']
+        try:
+            desc_serch = request.POST['search-description']
+        except:
+            desc_serch = False
+        
+        if desc_serch :
+            products = Product.objects.filter(Q(name__icontains = keyword) | Q(description__icontains = keyword) )
+        else:
+            products = Product.objects.filter(name__icontains = keyword)
+
+        return render(request, 'search.html', {'products':products, 'keyword':keyword})
+    
+    else:
+        products = Product.objects.all()
+        keyword = ""
+
+        return render(request, 'search.html', {'products':products, 'keyword':keyword})
