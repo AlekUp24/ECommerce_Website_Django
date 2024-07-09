@@ -15,6 +15,7 @@ class Profile(models.Model):
     state = models.CharField(max_length=200, blank=True)
     zipcode = models.CharField(max_length=200, blank=True)
     country = models.CharField(max_length=200, blank=True)
+    old_cart = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -24,8 +25,7 @@ def create_profile(sender, instance, created, **kwargs):
         user_profile = Profile(user=instance)
         user_profile.save()
 
-    post_save.connect(create_profile,sender=User)
-
+post_save.connect(create_profile,sender=User)
 
 
 # Categories of Products
@@ -34,6 +34,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
 
 # Customers
 class Customer(models.Model):
@@ -45,7 +46,8 @@ class Customer(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-    
+
+
 # All of our Products
 class Product(models.Model):
     name        = models.CharField(max_length=100)
@@ -59,6 +61,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
 
 # Orders
 class Order(models.Model):
