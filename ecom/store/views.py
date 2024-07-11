@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm
+from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
 from django import forms
 from django.db.models import Q
 import json
@@ -98,6 +98,21 @@ def update_user(request):
             return redirect('home')
         else:
             return render(request, 'update_user.html', {"user_form" : user_form})
+    else:
+        messages.success(request,"You must be logged in to access that page.")
+        return redirect('home')
+
+def update_info(request):
+    if request.user.is_authenticated:
+        current_user = Profile.objects.get(user_id=request.user.id)
+        form = UserInfoForm(request.POST or None, instance=current_user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,"User billing info has been updated!")
+            return redirect('update_user')
+        else:
+            return render(request, 'update_info.html', {"form" : form})
     else:
         messages.success(request,"You must be logged in to access that page.")
         return redirect('home')

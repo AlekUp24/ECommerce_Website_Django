@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-User Profile | E-Commerce Heaven
+User Info | E-Commerce Heaven
 {% endblock %}
 
 {% block content %}
@@ -10,8 +10,8 @@ User Profile | E-Commerce Heaven
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Update Profile</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Update User Profile</p>
+                <h1 class="display-4 fw-bolder">Update User Info</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Update User Information</p>
             </div>
         </div>
     </header>
@@ -22,12 +22,12 @@ User Profile | E-Commerce Heaven
         <div class="row">
                 <div class="col-md-6 offset-md-3">
 
-                    <form method="post" action="{% url 'update_user' %}">
+                    <form method="post" action="{% url 'update_info' %}">
                         {% csrf_token %}
-                        {{ user_form.as_p}}
+                        {{ form.as_p}}
                         <br>
                         <div class="d-flex justify-content-between">
-                            <a href="{% url 'update_password' %}" class="btn btn-dark col-md-3">Update Password</a><a href="{% url 'update_info' %}" class="btn btn-primary col-md-3">Update Billing Info</a><button type="submit" class="btn btn-success col-md-3">Save</button>
+                            <a href="{% url 'update_user' %}" class="btn btn-danger col-md-3">Dismiss</a><button type="submit" class="btn btn-success col-md-3">Update User Info</button>
                         </div>    
                     </form>                  
                 </div>
