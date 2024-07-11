@@ -21,10 +21,17 @@ User Info | E-Commerce Heaven
     <div class="container">
         <div class="row">
                 <div class="col-md-6 offset-md-3">
-
                     <form method="post" action="{% url 'update_info' %}">
                         {% csrf_token %}
-                        {{ form.as_p}}
+                        <div class="border border-secondary rounded-3 p-4">
+                            <strong>Billing Information</strong><br><br>
+                            {{ form.as_p}}
+                        </div>
+                        <br>
+                        <div class="border border-secondary rounded-3 p-4">
+                            <strong>Shipping Information</strong><br><br>
+                            {{ shipping_form.as_p}}
+                        </div>
                         <br>
                         <div class="d-flex justify-content-between">
                             <a href="{% url 'update_user' %}" class="btn btn-danger col-md-3">Dismiss</a><button type="submit" class="btn btn-success col-md-3">Update User Info</button>
