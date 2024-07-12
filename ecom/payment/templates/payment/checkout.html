@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout | E-Commerce Heaven{% endblock %}
+
+{% block content %}
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Checkout</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Review your order...</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                          Order Summary
+                        </div>
+                        <div class="card-body">
+                            {% if cart_products %}
+                                {% for product in cart_products %}
+                                    <div class="d-flex justify-space-beetween">
+                                        <div class="col-md-8">
+                                            <b>{{product.name}}</b>
+                                        </div>
+                                        <div class="col-md-4">
+                                            {% if product.is_sale %}
+                                                <b>$ {{product.sale_price}}</b>&nbsp;&nbsp;<strike>$ {{product.price}}</strike>
+                                            {% else %}
+                                                <b>$ {{product.price}}</b>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">Quantity:
+                                        {% for key,value in quantities.items %}
+                                            {% if key == product.id|slugify %}
+                                                {{ value }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <hr>                          
+                                {% endfor%}
+                            {% else %}
+                               <h4><center>Ups! <br>Your cart is empty. Add a product to see cart summary.</center></h4>    
+                            {% endif %}
+                        </div>
+                    </div> 
+                </div>
+            </div>    
+        </div>
+        <div class="container mb-3">
+            <div class="row col-md-6 offset-md-3">
+                <div class="d-flex justify-content-end">
+                    <h3 class="mb-3">Total: &nbsp;&nbsp; $ {{ totals }}</h3>
+                </div>
+                <div class="d-flex justify-content-between mt-2 mb-5">
+                    <a href="{% url 'cart_summary' %}" class="btn btn-secondary col-md-3">Back to Cart</a>
+                    {% if cart_products %}
+                        <a href="{% url 'checkout' %}" class="btn btn-warning col-md-6"><i class="bi bi-box-seam"></i>&nbsp;&nbsp;<b>Confirm and Order</b></a>
+                    {% endif %}
+                </div>    
+            </div>
+        </div>  
+        <div class="container mb-5">
+            <div class="row col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                    Shipping Information
+                    </div>
+                    <div class="card-body">
+                        <br>
+                        {% for field in shipping_form %}
+                            {% if field.value|length  > 0 %}
+                                <input class="form-control-plaintext mb-1" type="text" value="{{ field.value }}" readonly>
+                            {% else %}
+                                <input class="form-control-plaintext mb-1 mx-4" type="text" placeholder="{{ field.name }}" readonly>
+                            {% endif %}
+                        {% endfor %}
+                        <a href="{% url 'update_info' %}" class="btn btn-secondary mt-3 col-md-6 mx-auto">Change Shipping Information</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
