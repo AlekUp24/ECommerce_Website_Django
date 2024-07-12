@@ -4,7 +4,7 @@ from cart.cart import Cart
 from payment.forms import ShippingForm, PaymentForm
 from django.contrib.auth.models import User
 from payment.models import ShippingAddress, Order, OrderItem
-from store.models import Product
+from store.models import Product, Profile
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -99,6 +99,16 @@ def process_order(request):
                         create_order_item = OrderItem(order=create_order, product=product, user=user, quantity=value, price=price)
                         create_order_item.save()
 
+            # clear cart after placing order
+            for key in list(request.session.keys()):
+                if key == 'session_key':
+                    del request.session[key]    
+            
+            # clear old_cart too
+            user = Profile.objects.get(user__id=request.user.id)
+            user.old_cart = ""
+            user.save()
+            
             messages.success(request,"Order placed successfuly.")
             return redirect('home')
         
