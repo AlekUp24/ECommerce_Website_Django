@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Order | E-Commerce Heaven{% endblock %}
+
+{% block content %}
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Processing Order</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Processing your order...</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mb-5 mt-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Billing  Information</strong>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="{% url 'process_order' %}">
+                                {% csrf_token %}
+                                {{ payment_form.as_p }}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mb-3">
+            <div class="row col-md-6 offset-md-3">
+                <div class="d-flex justify-content-end">
+                    <h3 class="mb-3">Total: &nbsp;&nbsp; $ {{ totals }}</h3>
+                </div>
+                <div class="d-flex justify-content-between mt-2 mb-5">
+                    <a href="{% url 'checkout' %}" class="btn btn-secondary col-md-3">Back to Checkout</a>
+                    <button type="submit" href="{% url 'checkout' %}" class="btn btn-warning col-md-4"><i class="bi bi-credit-card"></i>&nbsp;&nbsp;<b>Pay Now</b></button>
+                    </form>
+                </div>    
+            </div>
+        </div>  
+
+
+{% endblock %}

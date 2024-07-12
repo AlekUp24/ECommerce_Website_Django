@@ -18,7 +18,7 @@
                 <div class="col-md-6 offset-md-3">
                     <div class="card">
                         <div class="card-header">
-                          Order Summary
+                          <strong>Order Summary</strong>
                         </div>
                         <div class="card-body">
                             {% if cart_products %}
@@ -60,27 +60,28 @@
                 <div class="d-flex justify-content-between mt-2 mb-5">
                     <a href="{% url 'cart_summary' %}" class="btn btn-secondary col-md-3">Back to Cart</a>
                     {% if cart_products %}
-                        <a href="{% url 'checkout' %}" class="btn btn-warning col-md-6"><i class="bi bi-box-seam"></i>&nbsp;&nbsp;<b>Confirm and Order</b></a>
+                        <a href="{% url 'billing_info' %}" class="btn btn-warning col-md-6"><i class="bi bi-box-seam"></i>&nbsp;&nbsp;<b>Confirm and Order</b></a>
                     {% endif %}
                 </div>    
             </div>
         </div>  
         <div class="container mb-5">
-            <div class="row col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header">
-                    Shipping Information
-                    </div>
-                    <div class="card-body">
-                        <br>
-                        {% for field in shipping_form %}
-                            {% if field.value|length  > 0 %}
-                                <input class="form-control-plaintext mb-1" type="text" value="{{ field.value }}" readonly>
-                            {% else %}
-                                <input class="form-control-plaintext mb-1 mx-4" type="text" placeholder="{{ field.name }}" readonly>
-                            {% endif %}
-                        {% endfor %}
-                        <a href="{% url 'update_info' %}" class="btn btn-secondary mt-3 col-md-6 mx-auto">Change Shipping Information</a>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Shipping Information</strong>
+                        </div>
+                        <div class="card-body">
+                            {% for field in shipping_form %}
+                                {% if field.value|length  > 0 %}
+                                    <input class="form-control-plaintext mb-1" type="text" value="{{ field.value }}" readonly>
+                                {% else %}
+                                    <input class="form-control-plaintext mb-1 mx-4" type="text" placeholder="{{ field.name }}" readonly>
+                                {% endif %}
+                            {% endfor %}
+                            <a href="{% url 'update_info' %}" class="btn btn-secondary mt-3 col-md-6 mx-auto">Change Shipping Information</a>
+                        </div>
                     </div>
                 </div>
             </div>
