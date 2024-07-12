@@ -4,6 +4,7 @@ from cart.cart import Cart
 from payment.forms import ShippingForm, PaymentForm
 from django.contrib.auth.models import User
 from payment.models import ShippingAddress, Order, OrderItem
+from store.models import Product
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -73,12 +74,31 @@ def process_order(request):
             shipping_address = f"{shipping_user.shipping_address1}\n{shipping_user.shipping_address2}\n{shipping_user.shipping_city}\n{shipping_user.shipping_state}\n{shipping_user.shipping_zipcode}\n{shipping_user.shipping_country}\n"
             full_name = shipping_user.shipping_full_name
             email = shipping_user.shipping_email
-            amount_paid = Cart(request).cart_total()
+            cart = Cart(request)
+            amount_paid = cart.cart_total()
+
+            cart_products = cart.get_products()
             
             # create order
             create_order = Order(user=user, full_name=full_name, email=email, shipping_address=shipping_address, amount_paid=amount_paid)
             create_order.save()
-            
+
+            # add order items
+            order_id = create_order.pk
+            quantities = cart.get_quantities()
+            for product in cart_products:
+                product_id =  product.id
+                if product.is_sale:
+                    price = product.sale_price
+                else:
+                    price = product.price
+                
+
+                for key,value in quantities.items():
+                    if int(key) == product.id:
+                        create_order_item = OrderItem(order=create_order, product=product, user=user, quantity=value, price=price)
+                        create_order_item.save()
+
             messages.success(request,"Order placed successfuly.")
             return redirect('home')
         
