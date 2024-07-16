@@ -21,4 +21,5 @@ boostrap templates
 
 
 ##
-![Uploading Django_Ecommerce_1.png…]()
+
+![Django_Ecommerce_1](https://github.com/user-attachments/assets/f87cb361-da76-4efc-bf94-6e0775abab98)
