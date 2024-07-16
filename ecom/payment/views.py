@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from payment.models import ShippingAddress, Order, OrderItem
 from store.models import Product, Profile
 from django.contrib.auth.models import User
+import datetime
 
 # Create your views here.
 
@@ -118,3 +119,67 @@ def process_order(request):
     else:
         messages.success(request,"You must be logged in to access that page.")
         return redirect('home')
+    
+
+def shipped_dash(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        orders = Order.objects.filter(shipped=True)
+
+        if request.POST:
+            num = request.POST['num']
+            order = Order.objects.filter(id=num)
+            order.update(shipped = False )
+
+            messages.success(request,"Shipping status updated.")
+            return redirect('home')
+        
+        return render(request, 'payment/shipped_dash.html', {'orders':orders})
+    
+    else:
+        messages.success(request,"You must be logged in and have admin permissions to access that page.")
+        return redirect('home')
+
+
+def not_shipped_dash(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        orders = Order.objects.filter(shipped=False)
+
+        if request.POST:
+            num = request.POST['num']
+            order = Order.objects.filter(id=num)
+            now = datetime.datetime.now()
+            order.update(shipped = True , date_shipped = now)
+
+            messages.success(request,"Shipping status updated.")
+            return redirect('home')
+
+        return render(request, 'payment/not_shipped_dash.html', {'orders':orders})
+
+    else:
+
+        messages.success(request,"You must be logged in and have admin permissions to access that page.")
+        return redirect('home')
+
+def orders(request, pk):
+    if request.user.is_authenticated and request.user.is_superuser:
+        order = Order.objects.get(id=pk)
+        items = OrderItem.objects.filter(order=pk)
+
+
+        if request.POST:
+            status = request.POST['shipping_status']
+            order = Order.objects.filter(id=pk)
+            now = datetime.datetime.now()
+            if status == 'true':
+                order.update(shipped = True , date_shipped = now)
+            else:
+                order.update(shipped = False)
+            messages.success(request,"Shipping status updated.")
+            return redirect('home')
+        
+        return render(request, 'payment/orders.html', {'order': order, 'items': items })
+    
+    else:
+
+            messages.success(request,"You must be logged in and have admin permissions to access that page.")
+            return redirect('home')

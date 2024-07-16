@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+About | E-Commerce Heaven
+{% endblock %}
+
+{% block content %}
+    
+    <div class="container">
+        <div class="row">
+            <center>
+                <div class="col-10">
+                    <h3 class="mt-5 mb-5">Shipped Dashboard</h3>
+                    <table class="table table-hover table-stripped table-bordered">
+                        <thead class="table-dark">
+                          <tr>
+                            <th scope="col">Order</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Customer Email</th>
+                            <th scope="col">Date Shipped</th>
+                            <th scope="col">Shipping Status</th>
+                          </tr>
+                        </thead>
+                        
+                        <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td><a href="{% url 'orders' order.id %}">{{order.id}}</a></td>
+                                    <td>$ {{order.amount_paid}}</td>
+                                    <td>{{order.email}}</td>
+                                    <td>{{order.date_shipped}}</td>
+                                    <td>
+                                        <form method='POST'>
+                                            {% csrf_token %}
+                                            <input type='hidden' name='shipping_status' value='false'>
+                                            <input type='hidden' name='num' value={{order.id}}>
+                                            <button type='submit' class='btn btn-warning btn-sm'>Mark as unshipped</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+    
+                        </tbody>
+                      </table>
+                </div>
+            </center>
+        </div>    
+    </div>
+
+    <br><br>
+
+{% endblock %}
