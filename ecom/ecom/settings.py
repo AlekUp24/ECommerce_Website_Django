@@ -18,8 +18,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY_HO')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = ['ecommercewebsitedjango-production.up.railway.app', 'https://ecommercewebsitedjango-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['ecommercewebsitedjango-production.up.railway.app', 'https://ecommercewebsitedjango-production.up.railway.app']
 
 # Application definition
 
