@@ -1,16 +1,19 @@
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#load env variables
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nvbeaa&+t_qz9eu86*bx_b*4$)7ida64fnr_5l*6pcxqk^4^x('
+SECRET_KEY = os.environ.get('SECRET_KEY_HO')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -69,8 +72,14 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': os.environ.get('DB_PASSWORD_HO'),
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '47120',
     }
 }
 

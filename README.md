@@ -14,7 +14,7 @@ Django
 bootstrap (with bootstrap templates)
 
 ## DB
-sqlite3
+PostgeSQL
 
 ## JS
 boostrap templates
